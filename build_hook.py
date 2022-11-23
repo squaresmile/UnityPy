@@ -5,6 +5,7 @@ from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version, build_data):
+        print(build_data)
         # set infer_tag to True to let hatchling infer the correct platform tag
         build_data["infer_tag"] = True
         # -
