@@ -37,7 +37,7 @@ jobs:
         strategy:
             fail-fast: false
             matrix:
-                os: ["ubuntu-latest", "macOS-latest", "windows-latest"]
+                os: ["ubuntu-20.04", "macOS-11", "windows-2019"]
                 cp: ["cp37", "cp38", "cp39", "cp310", "cp311"]
 
         timeout-minutes: 30
@@ -77,9 +77,10 @@ jobs:
                       ${{ matrix.cp }}-win32
                       ${{ matrix.cp }}-macosx_x86_64
                       ${{ matrix.cp }}-macosx_arm64
+                      ${{ matrix.cp }}-macosx_universal2
+                  CIBW_REPAIR_WHEEL_COMMAND: "" # Disable auditwheel because fmod lib will fail it on linux
                   CIBW_TEST_REQUIRES: pytest
                   CIBW_TEST_COMMAND: pytest -v -s {package}/tests
-                  CIBW_BUILD_VERBOSITY_MACOS: 1
 
             - name: Publish to PyPI
               if: success() && github.event_name == 'push' && env.TWINE_PASSWORD != '' && github.ref == 'refs/heads/master'
