@@ -20,7 +20,7 @@ class CustomBuildHook(BuildHookInterface):
         build_data["pure_python"] = False
 
         # add fmod lib for the target platform
-        fmod_lib = get_fmod_library()
+        fmod_lib = None
         if fmod_lib:
             print(f"Using fmod lib: {fmod_lib}")
             build_data["force_include"][fmod_lib] = fmod_lib

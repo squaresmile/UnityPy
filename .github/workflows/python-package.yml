@@ -3,42 +3,12 @@ name: Test and Publish
 on: [push, pull_request, workflow_dispatch]
 
 jobs:
-    test:
-        strategy:
-            fail-fast: false
-            matrix:
-                os: ["ubuntu-latest", "macOS-latest", "windows-latest"]
-
-        runs-on: ${{ matrix.os }}
-        name: ${{ matrix.os }}
-
-        steps:
-            - uses: actions/checkout@v2
-
-            - name: Set up Python
-              uses: actions/setup-python@v1
-              with:
-                  python-version: "3.7"
-
-            - name: Install Dependencies
-              run: |
-                  python -m pip install --upgrade pip pytest
-
-            - name: Install UnityPy
-              run: |
-                  pip install .
-
-            - name: Run tests
-              run: |
-                  pytest -v -s
-
     release:
-        needs: [test]
         strategy:
             fail-fast: false
             matrix:
-                os: ["ubuntu-20.04", "macOS-11", "windows-2019"]
-                cp: ["cp37", "cp38", "cp39", "cp310", "cp311"]
+                os: ["macOS-11"]
+                cp: ["cp38", "cp39", "cp310", "cp311"]
 
         timeout-minutes: 30
 
