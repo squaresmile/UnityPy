@@ -62,3 +62,7 @@ jobs:
                   twine upload ./wheelhouse/*.whl --skip-existing
                   hatch build -t sdist
                   twine upload ./dist/*.tar.gz --skip-existing
+
+            - uses: actions/upload-artifact@v2
+                with:
+                path: ./wheelhouse/*.whl
