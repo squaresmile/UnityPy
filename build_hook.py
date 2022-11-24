@@ -7,13 +7,17 @@ from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version, build_data):
-        print(self.target_name, self.config, self.build_config.extra_metadata)
+        print(self.target_name, self.config)
+        print(self.build_config.extra_metadata, self.build_config.directory, self.build_config.versions)
         print(version)
         print(build_data)
         print(platform.system())
         print(platform.architecture())
         print(platform.mac_ver())
+        print(platform.machine())
+        print(platform.uname())
         print(sys.path)
+        print(sys.executable)
         # set infer_tag to True to let hatchling infer the correct platform tag
         build_data["infer_tag"] = True
         # -
@@ -28,8 +32,8 @@ class CustomBuildHook(BuildHookInterface):
             print("No fmod lib found for the target platform")
 
         # compile and add UnityPyBoost
-        boost_fp = build_UnityPyBoost(self.root)
-        build_data["force_include"][boost_fp] = boost_fp
+        # boost_fp = build_UnityPyBoost(self.root)
+        # build_data["force_include"][boost_fp] = boost_fp
 
 
 def build_UnityPyBoost(build_dir: str) -> str:
