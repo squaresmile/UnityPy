@@ -41,26 +41,24 @@ def get_fmod_library():
     return f"lib/FMOD/{system}/{arch}/{lib_name}"
 
 
-packages = find_packages()
-packages += [
+fmod_lib = get_fmod_library()
+if fmod_lib is not None:
+    unitypy_package_data = [fmod_lib]
+else:
+    unitypy_package_data = []
+
+
+# These packages are missing __init__.py so setuptools will warn about unspecified packages
+extra_packages = [
     "UnityPy.resources",
     "UnityPy.tools",
     "UnityPy.tools.libil2cpp_helper",
-    "tests",
-    "tests.samples",
 ]
-unitypy_package_data = ["resources/uncompressed.tpk"]
-fmod_lib = get_fmod_library()
-if fmod_lib is not None:
-    unitypy_package_data.append(fmod_lib)
 
 
 setup(
-    packages=packages,
-    package_data={
-        "UnityPy": unitypy_package_data,
-        "": ["*.c", "*.h"],
-    },
+    packages=find_packages() + extra_packages,
+    package_data={"UnityPy": unitypy_package_data},
     ext_modules=[
         Extension(
             "UnityPy.UnityPyBoost",
