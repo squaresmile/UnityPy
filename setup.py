@@ -1,15 +1,10 @@
 import os
-import re
 import platform
 from setuptools import setup, Extension, find_packages
 
 
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 UNITYPYBOOST_DIR = os.path.join(INSTALL_DIR, "UnityPyBoost")
-
-version = None
-with open(os.path.join(INSTALL_DIR, "UnityPy", "__init__.py"), "rt") as f:
-    version = re.search(r'__version__ = "([^"]+)"', f.read()).group(1)
 
 
 def get_fmod_library():
@@ -66,7 +61,6 @@ setup(
         "UnityPy": unitypy_package_data,
         "": ["*.c", "*.h"],
     },
-    version=version,
     ext_modules=[
         Extension(
             "UnityPy.UnityPyBoost",
