@@ -68,7 +68,7 @@ jobs:
               uses: pypa/cibuildwheel@v2.11.2
               env:
                   CIBW_ARCHS_LINUX: auto aarch64
-                  CIBW_ARCHS_MACOS: x86_64 arm64
+                  CIBW_ARCHS_MACOS: x86_64 arm64 universal2
                   CIBW_BUILD: |
                       ${{ matrix.cp }}-manylinux_x86_64
                       ${{ matrix.cp }}-manylinux_i686
@@ -81,6 +81,7 @@ jobs:
                   CIBW_REPAIR_WHEEL_COMMAND: "" # Disable auditwheel because fmod lib will fail it on linux
                   CIBW_TEST_REQUIRES: pytest
                   CIBW_TEST_COMMAND: pytest -v -s {package}/tests
+                  CIBW_BUILD_VERBOSITY_MACOS: 3
 
             - name: Publish to PyPI
               if: success() && github.event_name == 'push' && env.TWINE_PASSWORD != '' && github.ref == 'refs/heads/master'

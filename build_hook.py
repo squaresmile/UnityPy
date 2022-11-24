@@ -1,11 +1,19 @@
 import os
+import sys
+import platform
 
 from hatchling.builders.hooks.plugin.interface import BuildHookInterface
 
 
 class CustomBuildHook(BuildHookInterface):
     def initialize(self, version, build_data):
+        print(self.target_name, self.config, self.build_config.extra_metadata)
+        print(version)
         print(build_data)
+        print(platform.system())
+        print(platform.architecture())
+        print(platform.mac_ver())
+        print(sys.path)
         # set infer_tag to True to let hatchling infer the correct platform tag
         build_data["infer_tag"] = True
         # -
@@ -47,7 +55,7 @@ def build_UnityPyBoost(build_dir: str) -> str:
     )
     print("Done building UnityPyBoost")
     # return the path to the built UnityPyBoost
-    lib_ext = ".pyd" if os.name == "nt" else ".so" 
+    lib_ext = ".pyd" if os.name == "nt" else ".so"
     for f in os.listdir(os.path.join(build_dir, "UnityPy")):
         if f.endswith(lib_ext):
             return f"UnityPy/{f}"
