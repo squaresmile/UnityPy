@@ -41,11 +41,10 @@ def get_fmod_library():
     return f"lib/FMOD/{system}/{arch}/{lib_name}"
 
 
+unitypy_package_data = ["resources/uncompressed.tpk"]
 fmod_lib = get_fmod_library()
 if fmod_lib is not None:
-    unitypy_package_data = [fmod_lib]
-else:
-    unitypy_package_data = []
+    unitypy_package_data.append(fmod_lib)
 
 
 # These packages are missing __init__.py so setuptools will warn about unspecified packages
