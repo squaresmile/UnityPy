@@ -11,7 +11,7 @@ UNITYPYBOOST_DIR = os.path.join(INSTALL_DIR, "UnityPyBoost")
 print(f"{platform.system()=}")
 print(f"{platform.machine()=}")
 print(f"{platform.architecture()=}")
-print(json.dumps(os.environ, indent=4))
+print(os.environ)
 print(f"{os.environ.get('ARCHFLAGS')}")
 
 
