@@ -1,10 +1,18 @@
 import os
 import platform
+import json
 from setuptools import setup, Extension, find_packages
 
 
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 UNITYPYBOOST_DIR = os.path.join(INSTALL_DIR, "UnityPyBoost")
+
+
+print(f"{platform.system()=}")
+print(f"{platform.machine()=}")
+print(f"{platform.architecture()=}")
+print(json.dumps(os.environ, indent=4))
+print(f"{os.environ.get('ARCHFLAGS')}")
 
 
 def get_fmod_library():
