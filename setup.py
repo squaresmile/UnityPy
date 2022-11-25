@@ -1,18 +1,10 @@
 import os
 import platform
-import json
 from setuptools import setup, Extension, find_packages
 
 
 INSTALL_DIR = os.path.dirname(os.path.realpath(__file__))
 UNITYPYBOOST_DIR = os.path.join(INSTALL_DIR, "UnityPyBoost")
-
-
-print(f"{platform.system()=}")
-print(f"{platform.machine()=}")
-print(f"{platform.architecture()=}")
-print(os.environ)
-print(f"{os.environ.get('ARCHFLAGS')}")
 
 
 def get_fmod_library():
@@ -26,6 +18,16 @@ def get_fmod_library():
 
     lib_name = ""
     if system in ["Windows", "Darwin"]:
+        if (
+            system == "Darwin"
+            and arch in ("32bit", "64bit")
+            and "arm64" in os.environ.get("ARCHFLAGS", "")
+        ):
+            print(
+                "cibuildwheel macos_arm64 cross compilation detected. No fmod lib is suitable."
+            )
+            return None
+
         lib_name = "fmod.dll" if system == "Windows" else "libfmod.dylib"
         if arch == "32bit":
             arch = "x86"
