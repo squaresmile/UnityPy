@@ -52,7 +52,7 @@ jobs:
                   CIBW_TEST_REQUIRES: pytest
                   CIBW_TEST_COMMAND: pytest -v -s {package}/tests
                   CIBW_BUILD_VERBOSITY_MACOS: 3
-                  CIBW_TEST_SKIP: *-macosx_arm64 *-macosx_universal2:arm64
+                  CIBW_TEST_SKIP: "*-macosx_arm64 *-macosx_universal2:arm64"
 
             - name: Publish to PyPI
               if: success() && github.event_name == 'push' && env.TWINE_PASSWORD != '' && github.ref == 'refs/heads/master'
